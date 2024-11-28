@@ -32,7 +32,6 @@ describe('Validar pantalla Conocer Mi Plan', () => {
         administrarMtv.getBoton().click()
     })
 
-    //TODAVIA NO ESTA EN CERT
     it('Desktop', {tags:['regresion', 'mtv', 'mtvPantalla']}, () => {
         cy.wait(2000)
         cy.viewport(1360, 768)
