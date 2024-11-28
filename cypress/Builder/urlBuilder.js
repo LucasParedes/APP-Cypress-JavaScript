@@ -1,6 +1,5 @@
 /*
     En este documento se ingresaran las URL para que sean empleadas en los script de automatización.
-    A priori en los Visuales
 */
 export default class Url {
 

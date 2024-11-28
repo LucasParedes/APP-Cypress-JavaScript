@@ -4,14 +4,7 @@
   "description": "Automatizaciones realizadas para la APP Mi Movistar",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "cypress:completa": "npx cypress run --env grepTags=regresion --browser chrome",
-    "cypress:lite": "npx cypress run --env grepTags=LITE --browser chrome",
-    "cypress:regMTV": "npx cypress run --env grepTags=mtv --browser chrome",
-    "cypress:Apis": "npx cypress run --env grepTags=api --browser chrome",
-    "cypress:regMTVPantallas": "npx cypress run --env grepTags=mtvPantalla --browser chrome",
-    "cypress:regMTVFlujos": "npx cypress run --env grepTags=mtvFlujo --browser chrome",
-    "cypress:regMTVTageos": "npx cypress run --env grepTags=mtvTageo --browser chrome"
+    "cypress:completa": "npx cypress run --env grepTags=regresion --browser chrome"
   },
   "repository": {
     "type": "git",

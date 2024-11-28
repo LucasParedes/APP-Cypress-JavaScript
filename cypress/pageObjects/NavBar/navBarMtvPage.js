@@ -14,20 +14,12 @@ export default class NavBar {
     tituloColorMobile                       = colorData.getWhite();
 
     // Textos de los títulos de las pantallas
-    tituloResumen                           = 'Resumen';
     tituloTextoMtv                          = 'Movistar TV';
     tituloMiPlanMtvActual                   = 'Mi plan Movistar TV actual';
     tituloSeleccionLinea                    = 'Movistar TV';
     tituloCambioPlan                        = 'Cambio de plan';
     tituloComboPlus                         = 'Disney+ y Star+';
     tituloAdministrarMtv                    = 'Administrar mi Movistar TV';
-    tituloDeco                              = 'Movistar TV con deco';
-    tituloUnDeco                            = 'Número de contacto';
-    tituloValidacionIdentidadPreguntasMtv   = 'Verificá tu identidad';
-    tituloSeleccionDePacks                  = 'Packs premium';
-    tituloSeriesYPeliculas                  = 'Series y películas';
-    tituloEmailDeCuenta                     = 'Email de cuenta';
-
     //Getters
     getNavBar                   (){ return cy.get(this.navBar)         };
     getTituloMtv                (){ return cy.get(this.tituloMtv)      };
@@ -45,19 +37,11 @@ export default class NavBar {
                         };
 
 // Geters Textos de los títulos de las pantallas
-    getTituloResumen            (){ return this.tituloResumen           };
+    
     getTituloTextoMtv           (){ return this.tituloTextoMtv          };
     getTituloMiPlanMtvActual    (){ return this.tituloMiPlanMtvActual   };
     getTituloSeleccionLinea     (){ return this.tituloSeleccionLinea    };
     getTituloCambioPlan         (){ return this.tituloCambioPlan        };
     getTituloComboPlus          (){ return this.tituloComboPlus         };
     getTituloAdministrarMtv     (){ return this.tituloAdministrarMtv    };
-    getTituloDeco               (){ return this.tituloDeco              };
-    getTituloUnDeco             (){ return this.tituloUnDeco            };
-    getTituloSeleccionDePacks   (){ return this.tituloSeleccionDePacks  };
-    getTituloSeriesYPeliculas   (){ return this.tituloSeriesYPeliculas  };
-    getTituloEmailDeCuenta      (){ return this.tituloEmailDeCuenta     };
-
-
-
 }

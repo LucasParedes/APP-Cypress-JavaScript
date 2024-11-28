@@ -1,29 +1,3 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-// En tu archivo de configuración de Cypress (por lo general cypress/support/index.js o cypress/support/commands.js)
 
 Cypress.on('uncaught:exception', (err, runnable) => {
     // Permitir que la prueba continúe incluso si hay una excepción no controlada
@@ -42,27 +16,6 @@ Cypress.Commands.add('loginIdp', (ambiente, user, pass) => {
     cy.get('#nemail').type(user) // Se escribe el email
     cy.wait(2000)
     cy.get('#npass').type(pass) // Se escribe la pass
-    cy.intercept(Cypress.env("requestApiEncrypt")).as('apiEncrypt')
-    cy.intercept(Cypress.env("requestApiLineas")).as('apiLineas')
-    cy.intercept(Cypress.env("requestApiPerfilado")).as('apiPerfilado')
-    cy.intercept(Cypress.env("requestSucces")).as('loginsucces')
-    cy.get('#btn-enviar').click() // Boton Enviar
-    cy.log('**La pantalla de carga tiene el parámetro email en la url**')
-    cy.url().should('include', 'email')
-    cy.log('**La Api Encrypt-ani se cargó correctamente**')
-    cy.wait('@apiEncrypt')
-        .its('response.statusCode')
-        .should('eq', 200)
-    cy.log('**La Api de líneas se cargó correctamente**')
-    cy.wait('@apiLineas')
-        .its('response.statusCode')
-        .should('eq', 200)
-    cy.log('**La Api de Perfilado se cargó correctamente**')
-    cy.wait('@apiPerfilado')
-        .its('response.statusCode')
-        .should('eq', 200)
-    cy.log('**El login se realizó con éxito**')
-    cy.wait('@loginsucces')
     cy.url().should('include', 'succes')
     cy.get('.f1mibvjw').click() // Se ingresa a la APP
     cy.log('**Se redirigió a la pantalla del Dashboard**')
@@ -151,106 +104,6 @@ Cypress.Commands.add('validarApiPackagePlan', (endpointPackagePlan, clienteBuild
     })
 });
 
-
-Cypress.Commands.add('validarSessionStorageMTV', (ruta) => {
-    cy.window().its('sessionStorage').invoke('getItem', 'feature-store').then(sessionData => {
-        if (sessionData !== null) {
-            const parsedData = JSON.parse(sessionData);
-
-            // Validación específica para movistarTvCart
-            cy.wrap(parsedData.movistarTvCart).should('deep.equal', {
-                actualPlan: ruta !== 'alta'
-                    ? {
-                        title: parsedData.movistarTvCart.actualPlan.title,
-                        plan: {
-                            id: parsedData.movistarTvCart.actualPlan.plan.id,
-                            subscriptionType: parsedData.movistarTvCart.actualPlan.plan.subscriptionType,
-                            hasCombo: parsedData.movistarTvCart.actualPlan.plan.hasCombo,
-                            main_package_id: parsedData.movistarTvCart.actualPlan.plan.main_package_id
-                        },
-                        mtv: parsedData.movistarTvCart.actualPlan.mtv
-
-                    }
-                    : {
-                        mtv: parsedData.movistarTvCart.actualPlan.mtv,
-                        title: parsedData.movistarTvCart.actualPlan.title,
-                        plan: {
-                            id: parsedData.movistarTvCart.actualPlan.plan.id,
-                            subscriptionType: parsedData.movistarTvCart.actualPlan.plan.subscriptionType,
-                            hasCombo: parsedData.movistarTvCart.actualPlan.plan.hasCombo,
-                            main_package_id: parsedData.movistarTvCart.actualPlan.plan.main_package_id
-                        },
-                    },
-                ...(ruta !== 'alta'
-                    ? { packs: parsedData.movistarTvCart.packs }
-                    : {
-                        packs: parsedData.movistarTvCart.packs.map((pack) => ({
-                            price: pack.price,
-                            name: pack.name,
-                            description: pack.description,
-                            imageSrc: pack.imageSrc,
-                            subscriptionId: {
-                                mobile: pack.subscriptionId.mobile,
-                                landline: pack.subscriptionId.landline
-                            },
-                            altImage: pack.altImage
-                        }))
-                    }
-                ),
-                decos: {
-                    price: parsedData.movistarTvCart.decos.price,
-                    count: parsedData.movistarTvCart.decos.count
-                },
-                plan: parsedData.movistarTvCart.plan,
-                combo: {
-                    id: parsedData.movistarTvCart.combo.id,
-                    active: parsedData.movistarTvCart.combo.active,
-                    title: parsedData.movistarTvCart.combo.title,
-                    description: parsedData.movistarTvCart.combo.description,
-                    comboInformation: {
-                        label: parsedData.movistarTvCart.combo.comboInformation.label,
-                        discount: parsedData.movistarTvCart.combo.comboInformation.discount,
-                        information: parsedData.movistarTvCart.combo.comboInformation.information
-                    },
-                    comboAttributes: [
-                        {
-                            icon: parsedData.movistarTvCart.combo.comboAttributes[0].icon,
-                            label: parsedData.movistarTvCart.combo.comboAttributes[0].label
-                        },
-                        {
-                            icon: parsedData.movistarTvCart.combo.comboAttributes[1].icon,
-                            label: parsedData.movistarTvCart.combo.comboAttributes[1].label
-                        },
-                        {
-                            icon: parsedData.movistarTvCart.combo.comboAttributes[2].icon,
-                            label: parsedData.movistarTvCart.combo.comboAttributes[2].label
-                        }
-                    ],
-                    price: parsedData.movistarTvCart.combo.price,
-                    bannerLink: parsedData.movistarTvCart.combo.bannerLink,
-                    primaryPackName: {
-                        mobile: parsedData.movistarTvCart.combo.primaryPackName.mobile,
-                        landline: parsedData.movistarTvCart.combo.primaryPackName.landline
-                    }
-                },
-                service: {
-                    id: parsedData.movistarTvCart.service.id,
-                    subscriptionType: parsedData.movistarTvCart.service.subscriptionType,
-                    networkTechnologyType: parsedData.movistarTvCart.service.networkTechnologyType,
-                    ...(parsedData.movistarTvCart.service.multipleLines !== undefined
-                        ? { multipleLines: parsedData.movistarTvCart.service.multipleLines }
-                        : {})
-                },
-                offer: parsedData.movistarTvCart.offer,
-                ani: parsedData.movistarTvCart.ani,
-                email: parsedData.movistarTvCart.email,
-                isValidate: parsedData.movistarTvCart.isValidate
-            });
-        } else {
-            cy.log('sessionData no existe');
-        }
-    });
-});
 
 // commands.js
 Cypress.Commands.add('verificarPedidoResumen', (opcionesPedido) => {

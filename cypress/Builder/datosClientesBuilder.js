@@ -3,13 +3,6 @@ export default class DatosClientes {
 
     build() { return this }
 
-    getGenero() { return this.genero }
-    getDocumentType() { return this.tipoDoc }
-    getDni() { return this.dni }
-    getAni() { return this.ani }
-    getContactId() { return this.contactId }
-    getHeaders() { return this.headersTokenAuth }
-
 
     convergente() {
         this.ani                  = '1142389256'
